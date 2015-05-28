@@ -2,7 +2,8 @@ var React = require('react')
   , Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , mui = require('material-ui')
-  , AppLeftNav = require('./page-with-nav.jsx');
+  , AppLeftNav = require('./page-with-nav.jsx')
+  , ThemeManager = new mui.Styles.ThemeManager();
 
 var {
   AppBar,
@@ -14,6 +15,12 @@ var {
 var Master = React.createClass({
 
   mixins: [Router.State],
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    }
+  },
 
   render() {
 
@@ -40,5 +47,13 @@ var Master = React.createClass({
     )
   }
 });
+
+Master.contextTypes = {
+  router: React.PropTypes.func
+};
+
+Master.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
 
 module.exports = Master;
