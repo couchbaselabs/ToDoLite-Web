@@ -6,7 +6,8 @@ var React = require('react')
 var {
   LeftNav,
   Menu,
-  TextField
+  TextField,
+  RaisedButton
   } = mui;
 
 var AppLeftNav = React.createClass({
@@ -14,7 +15,10 @@ var AppLeftNav = React.createClass({
     mixins: [Router.Navigation, Router.State],
 
     getInitialState() {
-        return {lists: []}
+        return {
+            lists: [],
+            newList: {}
+        }
     },
     componentDidMount() {
         fetch('/lists', {
@@ -36,6 +40,26 @@ var AppLeftNav = React.createClass({
               console.log(err);
           }.bind(this));
     },
+    handleInputChange() {
+        this.setState({
+            newList: {
+                title: this.refs.textField.getValue(),
+                owner: 'p:' + localStorage.userId,
+                members: [],
+                type: 'list'
+            }
+        })
+    },
+    addList() {
+        fetch('/newlist', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.newList),
+            credentials: 'include'
+        });
+    },
     render() {
         var header = <div className="logo">ToDoLite Web</div>;
 
@@ -51,7 +75,13 @@ var AppLeftNav = React.createClass({
                 menuItems={menuItems}
                 onItemClick={this._onItemClick} />
               <TextField
-                hintText="Add list" />
+                ref="textField"
+                hintText="Add list"
+                onChange={this.handleInputChange}/>
+              <RaisedButton
+                label="save"
+                primary={true}
+                onClick={this.addList}/>
           </div>
 
         )

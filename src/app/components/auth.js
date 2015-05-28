@@ -19,12 +19,11 @@ var Auth = {
             credentials: 'include'
         })
           .then(function(res) {
-              return res.json()
+              return res.json();
           })
           .then(function (jsonRes) {
-              console.log(jsonRes);
               if (jsonRes.ok) {
-                  localStorage.token = res.headers
+                  localStorage.userId = jsonRes.userCtx.name;
               }
           })
           .catch(function (error) {

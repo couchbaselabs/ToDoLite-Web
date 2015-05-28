@@ -187,12 +187,36 @@ func newTaskHandler(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+func newListHandler(w http.ResponseWriter, r *http.Request) {
+    var stringUrl string = "http://127.0.0.1:4984/todos/"
+    client := &http.Client{}
+    req, _ := http.NewRequest("POST", stringUrl, r.Body)
+    req.Header.Set("Cookie", r.Header.Get("Cookie"))
+    res, err := client.Do(req)
+
+    if err != nil {
+        fmt.Print(err)
+        return
+    }
+
+    if res != nil {
+        body, _ := ioutil.ReadAll(res.Body)
+
+        w.Header().Set("Content-Type", "application/json")
+        w.Write(body)
+        return
+
+    }
+}
+
 func main() {
     http.HandleFunc("/signup", signupHandler)
     http.HandleFunc("/login", loginHandler)
     http.HandleFunc("/lists", listsHandler)
     http.HandleFunc("/list/", listHandler)
+
     http.HandleFunc("/newtask", newTaskHandler)
+    http.HandleFunc("/newlist", newListHandler)
 
     fs := http.FileServer(http.Dir("build"))
     http.Handle("/", fs)

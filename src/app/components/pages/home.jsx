@@ -67,7 +67,6 @@ var HomePage = requireAuth(React.createClass({
     },
 
     addTask() {
-        console.log(this.state.newTask)
         fetch('/newtask', {
             method: 'post',
             headers: {
