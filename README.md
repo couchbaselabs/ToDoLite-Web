@@ -30,11 +30,8 @@ For signing up new user, you can use the demo app server in `main.go`.
   ```
   http://localhost:3000/login
   ```
+  The app server will attempt to connect to the Sync Gateway admin REST API on `http://localhost:4985`.
 3. Login with the credentials of the new user
-                                                                                         
-Note: the web server will attempt to connect to a Sync Gateway running locally with a `todos` database: `http://127.0.0.1:4984/todos`.
-
-**This is a work in progress** and will eventually be a public repo once the missing features are added and the readme has more info to get started.
                                                                                          
 ### Routes
 
