@@ -2,27 +2,52 @@ var React = require('react')
   , Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , mui = require('material-ui')
-  , AppLeftNav = require('./page-with-nav.jsx')
-  , ThemeManager = new mui.Styles.ThemeManager();
+  , AppLeftNav = require('./page-left-nav.jsx')
+  , AppRightNav = require('./page-right-nav.jsx')
+  , ThemeManager = new mui.Styles.ThemeManager()
+  , ActionAdd = require('./svg-icons/action-add.jsx');
 
 var {
   AppBar,
   AppCanvas,
   Menu,
-  IconButton
+  IconButton,
+  RaisedButton
   } = mui;
 
-var Master = React.createClass({
+var {Spacing} = mui.Styles;
 
-  mixins: [Router.State],
+class Master extends React.Component {
 
   getChildContext() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     }
-  },
+  }
+
+  componentDidMount() {
+    ThemeManager.setComponentThemes({
+      palette: {
+        primary1Color: 'green100'
+      }
+    })
+  }
+
+  getStyles() {
+    return {
+      root: {
+        padding: '48px 24px'
+      }
+    };
+  }
 
   render() {
+
+    var style = {
+      paddingTop: Spacing.desktopKeylineIncrement
+    };
+
+    var styles = this.getStyles();
 
     var logoutButton = (
       <IconButton
@@ -35,18 +60,26 @@ var Master = React.createClass({
       <AppCanvas predefinedLayout={1}>
 
         <AppBar
-          className="mui-dark-theme"
+          zDepth={0}
           title="ToDoLite Web"
-          showMenuIconButton={false}>
-          {logoutButton}
-        </AppBar>
+          onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap.bind(this)} />
 
-        <RouteHandler />
+        <AppLeftNav ref="leftNav" />
+
+        <div style={style}>
+          <div style={styles.root}>
+            <RouteHandler />
+          </div>
+        </div>
 
       </AppCanvas>
     )
   }
-});
+
+  _onLeftIconButtonTouchTap() {
+    this.refs.leftNav.toggle();
+  }
+}
 
 Master.contextTypes = {
   router: React.PropTypes.func

@@ -1,5 +1,7 @@
 ### ToDoLite Web
 
+![screenshot](http://cl.ly/image/1s0r120T0h2R/Desktop.png)
+
 A shared todo app to show how to build web applications against the Sync Gateway REST API.
 
 <img src="http://cl.ly/image/073K331o1G2T/Screen%20Shot%202015-05-25%20at%2023.16.58.png" style="max-width: 100%;" />

@@ -1,44 +1,29 @@
 var Auth = {
-    login (name, password, cb) {
-        cb = arguments[arguments.length - 1];
-        if (localStorage.token) {
-            if (cb) cb(true);
-            this.onChange(true);
-            return;
-        }
-        var json = JSON.stringify({
-            name: name,
-            password: password
-        });
-        fetch('/login', {
+
+    url: 'http://localhost:4984/todos',
+
+    login: function(name, password) {
+        return fetch(this.url + '/_session', {
             method: 'post',
+            mode: 'cors',
             headers: {
                 "Content-type": "application/json"
             },
-            body: json,
+            body: JSON.stringify({
+                name: name,
+                password: password
+            }),
             credentials: 'include'
-        })
-          .then(function(res) {
-              return res.json();
-          })
+        }).then((res) => res.json())
           .then(function (jsonRes) {
               if (jsonRes.ok) {
                   localStorage.userId = jsonRes.userCtx.name;
               }
+              return jsonRes;
           })
           .catch(function (error) {
               console.log('Request failed', error);
           });
-        //pretendRequest(email, pass, (res) => {
-        //    if (res.authenticated) {
-        //        localStorage.token = res.token;
-        //        if (cb) cb(true);
-        //        this.onChange(true);
-        //    } else {
-        //        if (cb) cb(false);
-        //        this.onChange(false);
-        //    }
-        //});
     },
 
     getToken: function () {
