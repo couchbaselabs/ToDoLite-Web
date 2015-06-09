@@ -4,11 +4,11 @@ var React = require('react')
   , mui = require('material-ui')
   , StyleResizable = mui.Mixins.StyleResizable
   , Typography = mui.Styles.Typography
-  , AppLeftNav = require('./../page-left-nav.jsx')
   , ActionAdd = require('./../svg-icons/action-add.jsx')
   , ActionDelete = require('./../svg-icons/action-delete.jsx')
-  , AppRightNav = require('./../page-right-nav.jsx')
-  , api = require('./../../utils/api');
+  , ShareNav = require('./../share-nav.jsx')
+  , api = require('./../../utils/api')
+  , auth = require('./../../utils/auth');
 
 
 
@@ -26,9 +26,9 @@ var {
 var requireAuth = (Component) => {
     return class Authenticated extends React.Component {
         static willTransitionTo(transition) {
-            //if (!auth.loggedIn()) {
-            //    transition.redirect('/login', {}, {'nextPath' : transition.path});
-            //}
+            if (!auth.loggedIn()) {
+                transition.redirect('/login', {}, {'nextPath' : transition.path});
+            }
         }
         render () {
             return <Component {...this.props}/>
@@ -244,7 +244,7 @@ var HomePage = requireAuth(React.createClass({
                   </Paper>
               </div>
 
-              <AppRightNav currentList={this.state.currentList} ref="rightNav" />
+              <ShareNav currentList={this.state.currentList} ref="rightNav" />
           </ClearFix>
         )
     },
@@ -255,16 +255,3 @@ var HomePage = requireAuth(React.createClass({
 }));
 
 module.exports = HomePage;
-
-function pretendRequest(email, pass, cb) {
-    setTimeout(() => {
-        if (email === 'joe@example.com' && pass === 'password1') {
-            cb({
-                authenticated: true,
-                token: Math.random().toString(36).substring(7)
-            });
-        } else {
-            cb({authenticated: false});
-        }
-    }, 0);
-}

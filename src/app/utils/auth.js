@@ -16,6 +16,11 @@ var Auth = {
             credentials: 'include'
         }).then((res) => res.json())
           .then(function (jsonRes) {
+
+              /*
+              Set the userId in LocalStorage as a way to identify if
+              the user is logged in in the loggedIn method.
+               */
               if (jsonRes.ok) {
                   localStorage.userId = jsonRes.userCtx.name;
               }
@@ -26,8 +31,8 @@ var Auth = {
           });
     },
 
-    getToken: function () {
-        return localStorage.token;
+    getUserId: function () {
+        return localStorage.userId;
     },
 
     logout: function (cb) {
@@ -38,7 +43,7 @@ var Auth = {
     },
 
     loggedIn: function () {
-        return !!localStorage.token;
+        return !!localStorage.userId;
     },
 
     onChange: function () {},

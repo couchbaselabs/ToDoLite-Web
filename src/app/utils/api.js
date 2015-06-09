@@ -66,6 +66,16 @@ var api = {
             body: JSON.stringify(document),
             credentials: 'include'
         }).then((res) => res.json());
+    },
+    updateDoc: function(document) {
+        return fetch(this.url + '/' + document._id, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(document),
+            credentials: 'include'
+        }).then((res) => res.json());
     }
 };
 

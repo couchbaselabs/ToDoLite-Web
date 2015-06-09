@@ -2,8 +2,7 @@ var React = require('react')
   , Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , mui = require('material-ui')
-  , AppLeftNav = require('./page-left-nav.jsx')
-  , AppRightNav = require('./page-right-nav.jsx')
+  , ListsNav = require('./lists-nav.jsx')
   , ThemeManager = new mui.Styles.ThemeManager()
   , ActionAdd = require('./svg-icons/action-add.jsx');
 
@@ -64,7 +63,7 @@ class Master extends React.Component {
           title="ToDoLite Web"
           onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap.bind(this)} />
 
-        <AppLeftNav ref="leftNav" />
+        <ListsNav ref="leftNav" />
 
         <div style={style}>
           <div style={styles.root}>

@@ -2,7 +2,8 @@ var React = require('react')
   , Router = require('react-router')
   , RouteHandler = Router.RouteHandler
   , mui = require('material-ui')
-  , api = require('./../utils/api');
+  , api = require('./../utils/api')
+  , User = require('./user-item.jsx');
 
 var {
   LeftNav,
@@ -51,6 +52,7 @@ var AppRightNav = React.createClass({
 
     var styles = this.getStyles();
     var owner = this.props.currentList.owner;
+    var list = this.props.currentList;
     if (owner) {
       var ownerName = owner.substring(owner.indexOf(':') + 1);
     }
@@ -65,10 +67,10 @@ var AppRightNav = React.createClass({
             display: 'inline-block',
             float: 'right'
             }}>
-            <Checkbox
-              name="checked"
-              value="checked"
-              defaultChecked={userName == ownerName} />
+            <User
+              list={list}
+              owner={ownerName}
+              username={userName} />
           </div>
         </div>
       )
@@ -93,9 +95,12 @@ var AppRightNav = React.createClass({
         menuItems={[]}
         selectedIndex={this._getSelectedIndex()}
         onChange={this._onRightNavChange}>
-        <RaisedButton label="Yay"/>
       </LeftNav>
     );
+  },
+
+  _onShareList() {
+    console.log('hey')
   },
 
   toggle() {
