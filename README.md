@@ -17,7 +17,7 @@ The app is also available on other platforms: [ToDoLite-iOS](https://github.com/
 Opening `http://localhost:4984/todos/` in your browser should show information about the the `todos` database.
 
 For most endpoints, the web app will send requests with credentials to Sync Gateway
-directly. The config file uses CORS to make cross origin requests.
+directly. The config file uses [CORS config](http://developer.couchbase.com/mobile/develop/guides/sync-gateway/administering-sync-gateway/command-line-tool/index.html#cors-configuration) to make cross origin requests.
 
 For signing up a new user, you can use the demo app server in `main.go`.
 
