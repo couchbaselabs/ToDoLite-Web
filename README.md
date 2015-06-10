@@ -32,7 +32,7 @@ For signing up a new user, you can use the demo app server in `main.go`.
   http://localhost:3000/signup
   ```
   The app server will attempt to connect to the Sync Gateway admin REST API on `http://localhost:4985`.
-3. Login with the credentials of the user created
+3. Login with the credentials of the created user on:
 
   ```
   http://localhost:3000/login
